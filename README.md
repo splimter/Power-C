@@ -9,7 +9,7 @@ most popular and used libraries and algorithms to make C easy as others.
 * Always destroy the list using: al_destroy
 * C operation: al_append, al_prepend
 * R operation: al_getAtIndex,
-* U operation: al_setAtIndex,
+* U operation: al_setAtIndex, al_sort(), al_reverse()
 * D operation: al_delAtIndex, al_delHead, al_delTail
 * get arraylist size: al_size
 
