@@ -25,7 +25,7 @@ const int RUN = 3;
 /// sort array
 /// \param arr - array to be sorted
 /// \param n - array size
-/// \param type - String, Integer, Float
+/// \param type - Integer, Float, String
 void utl_sort(void *arr[], int n, const char *type) {
 
     if (type == Integer || type == Float || type == String) {
@@ -49,7 +49,7 @@ void utl_sort(void *arr[], int n, const char *type) {
 /// reverse array
 /// \param arr - array to be reversed
 /// \param n - array size
-/// \param type - String, Integer, Float
+/// \param type - Integer, Float, String
 void utl_inverse(void *arr[], int n, const char *type) {
 
     auto caster;

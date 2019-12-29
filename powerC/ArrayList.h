@@ -9,9 +9,9 @@
 /// @details
 /// Always init the list using: al_init
 /// Always destroy the list using: al_destroy
-/// C operation: al_append, al_prepend, al_toArray()
-/// R operation: al_getAtIndex
-/// U operation: al_setAtIndex, al_sort(), al_reverse()
+/// C operation: al_append, al_prepend, al_toArray
+/// R operation: al_getAtIndex, al_contain
+/// U operation: al_setAtIndex, al_sort, al_reverse
 /// D operation: al_delAtIndex, al_delHead, al_delTail
 /// get arraylist size: al_size
 
@@ -179,13 +179,16 @@ int al_size(arraylist *list) {
 
 void al_fstring(void *data);
 
+/// delete the tail of list
+/// @param list - &list
 void al_delTail(arraylist *list);
 
 /// return value at defined index
 /// \param list - &list
 /// \param i - index
+/// \param type - Integer, Float, String
 /// \return value at index
-void *al_getAtIndex(arraylist *list, int i, const char type[]) {
+void *al_getAtIndex(arraylist *list, int i, const char* type) {
     void *val;
     arraylist _list;
 
@@ -318,6 +321,8 @@ void al_setAtIndex(arraylist *list, int i, void *element) {
 
 /// convert arraylist to array
 /// \param list - &list
+/// \param arr - list item will go to it
+/// \param type - Integer, Float, String
 void al_toArray(arraylist *list, void *arr[], const char *type) {
     auto caster;
     if (type == Integer) {
@@ -344,6 +349,7 @@ void al_toArray(arraylist *list, void *arr[], const char *type) {
 
 /// sort array list
 /// \param list - &list
+/// \param type - Integer, Float, String
 void al_sort(arraylist *list, char *type) {
 
     auto caster;
@@ -375,6 +381,7 @@ void al_sort(arraylist *list, char *type) {
 
 /// reverse array list
 /// \param list - &list
+/// \param type - Integer, Float, String
 void al_inverse(arraylist *list, char *type) {
     auto caster;
     if (type == Integer) {
