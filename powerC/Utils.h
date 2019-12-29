@@ -7,7 +7,7 @@
 
 /// @details
 /// utl_sort - sort array
-/// utl_reverse - reverse array
+/// utl_inverse - reverse array
 
 /// @warning
 /// 510 type error
@@ -50,7 +50,7 @@ void utl_sort(void *arr[], int n, const char *type) {
 /// \param arr - array to be reversed
 /// \param n - array size
 /// \param type - String, Integer, Float
-void utl_reverse(void *arr[], int n, const char *type) {
+void utl_inverse(void *arr[], int n, const char *type) {
 
     auto caster;
     if (type == Integer) {

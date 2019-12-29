@@ -26,7 +26,7 @@ Associated files
 
 @details
 * utl_sort
-* utl_reverse
+* utl_inverse
 
 @warning
 * 510 type error

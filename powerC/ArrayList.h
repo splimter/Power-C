@@ -319,55 +319,86 @@ void al_setAtIndex(arraylist *list, int i, void *element) {
 /// convert arraylist to array
 /// \param list - &list
 void al_toArray(arraylist *list, void *arr[], const char *type) {
-    //todo generic
-    listNode *c = list->head;
-    int size = al_size(list);
-
-    //void *axx[size];
-    //todo fix gap
+    auto caster;
     if (type == Integer) {
-        for (int i = 0; i < size; i++) {
-            *(int *) (arr + i) = *(int *) (c->data);
-            c = c->next;
-        }
-    }
-//    else if (type == Float)
-//        for (int i = 0; i < size; i++) {
-//            axx[i] = *((float *) c->data);
-//            c = c->next;
-//        } //todo fix weird char split
-    else if (type == String)
-        for (int i = 0; i < size; i++) {
-            *(char *) (arr + i) = *((char *) c->data);
-            c = c->next;
-        }
-    else {
+        caster = pint;
+    } else if (type == Float) {
+        caster = pfloat;
+    } else if (type == String) {
+        caster = pstring;
+    } else {
         printf("error type\n");
         exit(510);
     }
 
+    listNode *c = list->head;
+    int size = al_size(list);
+
+    for (int i = 0; i < size; i++) {
+        *((typeof(caster) *) (arr) + i) = *(typeof(caster) *) (c->data);
+        c = c->next;
+    }
+
 }
 
-/*
+
 /// sort array list
 /// \param list - &list
-void al_sort(arraylist *list) {
-    int *axc = al_toArray(list,Integer), size = al_size(list);
+void al_sort(arraylist *list, char *type) {
 
-    printf("sx %d",axc[1]);
-    utl_reverse(axc, size, Integer);
-    printf("sx %d",axc[0]);
+    auto caster;
+    if (type == Integer) {
+        caster = pint;
+    } else if (type == Float) {
+        caster = pfloat;
+    } else if (type == String) {
+        caster = pstring;
+    } else {
+        printf("error type\n");
+        exit(510);
+    }
+
+    int size = al_size(list);
+    int arr[size];
+
+    al_toArray(list, (void **) arr, Integer);
+    utl_sort((void **) arr, size, type);
 
     listNode *c = list->head;
     for (int i = 0; i < size; i++) {
-        memcpy(c->data, &axc[i], list->elementSize);
+        *(typeof(caster) *) (c->data) = *((typeof(caster) *) (arr) + i);
+        c = c->next;
     }
+
 }
-*/
+
 
 /// reverse array list
 /// \param list - &list
-void al_inverse(arraylist *list) {
+void al_inverse(arraylist *list, char *type) {
+    auto caster;
+    if (type == Integer) {
+        caster = pint;
+    } else if (type == Float) {
+        caster = pfloat;
+    } else if (type == String) {
+        caster = pstring;
+    } else {
+        printf("error type\n");
+        exit(510);
+    }
+
+    int size = al_size(list);
+    int arr[size];
+
+    al_toArray(list, (void **) arr, Integer);
+    utl_inverse((void **) arr, size, type);
+
+    listNode *c = list->head;
+    for (int i = 0; i < size; i++) {
+        *(typeof(caster) *) (c->data) = *((typeof(caster) *) (arr) + i);
+        c = c->next;
+    }
 
 }
 
