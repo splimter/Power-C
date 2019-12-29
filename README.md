@@ -25,7 +25,8 @@ Associated files
 * SortHelper.h SortHelper.c
 
 @details
-* utl_sort - utl_sort array
+* utl_sort
+* utl_reverse
 
 @warning
 * 510 type error

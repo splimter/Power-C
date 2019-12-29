@@ -6,8 +6,8 @@
 #define POWERC_UTILS_H
 
 /// @details
-/// sort - sort array
-/// reverse - reverse array
+/// utl_sort - sort array
+/// utl_reverse - reverse array
 
 /// @warning
 /// 510 type error
@@ -16,6 +16,9 @@
 #include "SortHelper.h"
 
 const char *String = "string", *Integer = "integer", *Float = "float";
+static int pint = 0;
+static float pfloat = 0.0f;
+static char *pstring = "";
 
 const int RUN = 3;
 
@@ -25,20 +28,22 @@ const int RUN = 3;
 /// \param type - String, Integer, Float
 void utl_sort(void *arr[], int n, const char *type) {
 
-    for (int i = 0; i < n; i += RUN)
-        if (type == Integer || type == Float || type == String)
+    if (type == Integer || type == Float || type == String) {
+        for (int i = 0; i < n; i += RUN)
             insertionSort(arr, i, minSort((i + 31), (n - 1)), type);
-        else {
-            printf("type error\n");
-            exit(510);
-        }
 
-    for (int size = RUN; size < n; size = 2 * size)
-        for (int left = 0; left < n; left += 2 * size) {
-            int mid = left + size - 1;
-            int right = minSort((left + 2 * size - 1), (n - 1));
-            mergeSort(arr, left, mid, right, Integer);
-        }
+        for (int size = RUN; size < n; size = 2 * size)
+            for (int left = 0; left < n; left += 2 * size) {
+                int mid = left + size - 1;
+                int right = minSort((left + 2 * size - 1), (n - 1));
+                mergeSort(arr, left, mid, right, Integer);
+            }
+
+    } else {
+        printf("type error\n");
+        exit(510);
+    }
+
 }
 
 /// reverse array
@@ -46,27 +51,23 @@ void utl_sort(void *arr[], int n, const char *type) {
 /// \param n - array size
 /// \param type - String, Integer, Float
 void utl_reverse(void *arr[], int n, const char *type) {
-    if (type == Integer)
-        for (int i = 0; i < n / 2; i++) {
-            int t = *((int *) arr + i);
-            *((int *) arr + i) = *((int *) arr + n - i - 1);
-            *((int *) arr + n - i - 1) = t;
-        }
-    else if (type == Float)
-        for (int i = 0; i < n / 2; i++) {
-            float t = *((float *) arr + i);
-            *((float *) arr + i) = *((float *) arr + n - i - 1);
-            *((float *) arr + n - i - 1) = t;
-        }
-    else if (type == String)
-        for (int i = 0; i < n / 2; i++) {
-            char *t = (char *) arr[i];
-            arr[i] = arr[n - i - 1];
-            arr[n - i - 1] = (void **) t;
-        }
-    else {
+
+    auto caster;
+    if (type == Integer) {
+        caster = pint;
+    } else if (type == Float) {
+        caster = pfloat;
+    } else if (type == String) {
+        caster = pstring;
+    } else {
         printf("error type\n");
         exit(510);
+    }
+
+    for (int i = 0; i < n / 2; i++) {
+        int t = *((typeof(caster) *) arr + i);
+        *((typeof(caster) *) arr + i) = *((typeof(caster) *) arr + n - i - 1);
+        *((typeof(caster) *) arr + n - i - 1) = t;
     }
 
 }
