@@ -346,7 +346,6 @@ void al_toArray(arraylist *list, void *arr[], const char *type) {
 
 }
 
-
 /// sort array list
 /// \param list - &list
 /// \param type - Integer, Float, String
@@ -378,11 +377,10 @@ void al_sort(arraylist *list, char *type) {
 
 }
 
-
 /// reverse array list
 /// \param list - &list
 /// \param type - Integer, Float, String
-void al_inverse(arraylist *list, char *type) {
+void al_inverse(arraylist *list,const char *type) {
     auto caster;
     if (type == Integer) {
         caster = pint;
@@ -408,6 +406,33 @@ void al_inverse(arraylist *list, char *type) {
     }
 
 }
+
+/// search an element in arraylist
+/// \param list - &list
+/// \param target - &E
+/// \return the index of element if found else -1
+int al_contain(arraylist *list,void *target,const char *type){
+    auto caster;
+    if (type == Integer) {
+        caster = pint;
+    } else if (type == Float) {
+        caster = pfloat;
+    } else if (type == String) {
+        caster = pstring;
+    } else {
+        printf("error type\n");
+        exit(510);
+    }
+    listNode *c = list->head;
+    for (int i = 0; i < al_size(list); ++i) {
+        if( *(typeof(caster) *) (c->data) ==*(typeof(caster) *) target)
+            return i;
+        else
+            c = c->next;
+    }
+    return -1;
+}
+
 
 void al_fstring(void *data) {
     free(*(char **) data);

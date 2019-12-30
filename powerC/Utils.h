@@ -6,8 +6,9 @@
 #define POWERC_UTILS_H
 
 /// @details
-/// utl_sort - sort array
-/// utl_inverse - reverse array
+/// utl_sort
+/// utl_inverse
+/// ult-contain
 
 /// @warning
 /// 510 type error
@@ -51,7 +52,6 @@ void utl_sort(void *arr[], int n, const char *type) {
 /// \param n - array size
 /// \param type - Integer, Float, String
 void utl_inverse(void *arr[], int n, const char *type) {
-
     auto caster;
     if (type == Integer) {
         caster = pint;
@@ -70,6 +70,32 @@ void utl_inverse(void *arr[], int n, const char *type) {
         *((typeof(caster) *) arr + n - i - 1) = t;
     }
 
+}
+
+/// search an element in array
+/// \param array
+/// \param size - size of the array
+/// \param target - &E
+/// \param type - Integer, Float, String
+/// \return the index of element if found else -1
+int utl_contain(void *array, int size, void *target, const char *type) {
+    auto caster;
+    if (type == Integer) {
+        caster = pint;
+    } else if (type == Float) {
+        caster = pfloat;
+    } else if (type == String) {
+        caster = pstring;
+    } else {
+        printf("error type\n");
+        exit(510);
+    }
+    for (int i = 0; i < size; ++i) {
+        if (*((typeof(caster) *) (array) + i) == *(typeof(caster) *) target)
+            return i;
+    }
+
+    return -1;
 }
 
 // utility function to print the Array

@@ -8,8 +8,8 @@ most popular and used libraries and algorithms to make C easy as others.
 * Always init the list using: al_init
 * Always destroy the list using: al_destroy
 * C operation: al_append, al_prepend
-* R operation: al_getAtIndex,
-* U operation: al_setAtIndex, al_sort(), al_reverse()
+* R operation: al_getAtIndex, al_contain
+* U operation: al_setAtIndex, al_sort, al_reverse
 * D operation: al_delAtIndex, al_delHead, al_delTail
 * get arraylist size: al_size
 
@@ -27,6 +27,7 @@ Associated files
 @details
 * utl_sort
 * utl_inverse
+* utl_contain
 
 @warning
 * 510 type error
