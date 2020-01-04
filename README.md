@@ -13,7 +13,6 @@ most popular and used libraries and algorithms to make C easy as others.
 * D operation: al_delAtIndex, al_delHead, al_delTail
 * get arraylist size: al_size
 
-
 @warning
 * 500 Index cannot be below 0
 * 501 Index Out of Range
@@ -21,13 +20,10 @@ most popular and used libraries and algorithms to make C easy as others.
 
 ## Utils.h
 
-Associated files
-* SortHelper.h SortHelper.c
-
 @details
-* utl_sort
-* utl_inverse
-* utl_contain
+* arr_sort
+* arr_inverse
+* arr_contain
 
 @warning
 * 510 type error

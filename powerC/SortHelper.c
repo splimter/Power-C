@@ -2,25 +2,28 @@
 // Created by splimter on 24/12/2019.
 //
 
-extern const char *String, *Integer, *Float;
+#include <string.h>
 
+static const char *String = "string", *Integer = "integer", *Float = "float";
 static int pint = 0;
 static float pfloat = 0.0f;
 static char *pstring = "";
 
-/// TO be used in utl_sort()
+/// TO be used in arr_sort()
 void insertionSort(void *arr[], int left, int right, const char *type) {
 
     auto caster;
-    if (type == Integer) {
+    if (strcmp(type, Integer) == 0) {
         caster = pint;
-    } else if (type == Float) {
+    } else if (strcmp(type, Float) == 0) {
         caster = pfloat;
-    } else if (type == String) {
+    } else if (strcmp(type, String) == 0) {
         caster = pstring;
     }
 
     for (int i = left + 1; i <= right; i++) {
+        auto temmp = pstring;
+        temmp = *((typeof(caster) *) (arr) + i);
         int temp = *((typeof(caster) *) (arr) + i);
         int j = i - 1;
         while (*((typeof(caster) *) (arr) + j) > temp && j >= left) {

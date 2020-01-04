@@ -2,75 +2,32 @@
 // Created by splimter on 21/12/2019.
 //
 
-#ifndef POWERC_UTILS_H
-#define POWERC_UTILS_H
 
 /// @details
-/// utl_sort
-/// utl_inverse
-/// ult-contain
+/// arr_sort
+/// arr_inverse
+/// arr-contain
 
 /// @warning
 /// 510 type error
 
-#include <stdio.h>
-#include "SortHelper.h"
 
-const char *String = "string", *Integer = "integer", *Float = "float";
-static int pint = 0;
-static float pfloat = 0.0f;
-static char *pstring = "";
+#ifndef POWERC_UTILS_H
+#define POWERC_UTILS_H
 
-const int RUN = 3;
+static const char *String = "string", *Integer = "integer", *Float = "float";
 
 /// sort array
 /// \param arr - array to be sorted
 /// \param n - array size
 /// \param type - Integer, Float, String
-void utl_sort(void *arr[], int n, const char *type) {
-
-    if (type == Integer || type == Float || type == String) {
-        for (int i = 0; i < n; i += RUN)
-            insertionSort(arr, i, minSort((i + 31), (n - 1)), type);
-
-        for (int size = RUN; size < n; size = 2 * size)
-            for (int left = 0; left < n; left += 2 * size) {
-                int mid = left + size - 1;
-                int right = minSort((left + 2 * size - 1), (n - 1));
-                mergeSort(arr, left, mid, right, Integer);
-            }
-
-    } else {
-        printf("type error\n");
-        exit(510);
-    }
-
-}
+void arr_sort(void **arr, int n, const char *type);
 
 /// reverse array
 /// \param arr - array to be reversed
-/// \param n - array size
+/// \param size - array size
 /// \param type - Integer, Float, String
-void utl_inverse(void *arr[], int n, const char *type) {
-    auto caster;
-    if (type == Integer) {
-        caster = pint;
-    } else if (type == Float) {
-        caster = pfloat;
-    } else if (type == String) {
-        caster = pstring;
-    } else {
-        printf("error type\n");
-        exit(510);
-    }
-
-    for (int i = 0; i < n / 2; i++) {
-        int t = *((typeof(caster) *) arr + i);
-        *((typeof(caster) *) arr + i) = *((typeof(caster) *) arr + n - i - 1);
-        *((typeof(caster) *) arr + n - i - 1) = t;
-    }
-
-}
+void arr_inverse(void **arr, int size, const char *type);
 
 /// search an element in array
 /// \param array
@@ -78,43 +35,13 @@ void utl_inverse(void *arr[], int n, const char *type) {
 /// \param target - &E
 /// \param type - Integer, Float, String
 /// \return the index of element if found else -1
-int utl_contain(void *array, int size, void *target, const char *type) {
-    auto caster;
-    if (type == Integer) {
-        caster = pint;
-    } else if (type == Float) {
-        caster = pfloat;
-    } else if (type == String) {
-        caster = pstring;
-    } else {
-        printf("error type\n");
-        exit(510);
-    }
-    for (int i = 0; i < size; ++i) {
-        if (*((typeof(caster) *) (array) + i) == *(typeof(caster) *) target)
-            return i;
-    }
-
-    return -1;
-}
+int arr_contain(void *array, int size, void *target, const char *type);
 
 // utility function to print the Array
-void printArrayInt(int *arr, int n) {
-    for (int i = 0; i < n; i++)
-        printf("%d  ", arr[i]);
-    printf("\n");
-}
+void printArrayInt(int *arr, int n);
 
-void printArrayFloat(float *arr, int n) {
-    for (int i = 0; i < n; i++)
-        printf("%f  ", arr[i]);
-    printf("\n");
-}
+void printArrayFloat(float *arr, int n);
 
-void printArrayString(char *arr[], int n) {
-    for (int i = 0; i < n; i++)
-        printf("%s  ", arr[i]);
-    printf("\n");
-}
+void printArrayString(char *arr[], int n);
 
 #endif //POWERC_UTILS_H
