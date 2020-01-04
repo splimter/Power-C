@@ -5,9 +5,9 @@
 #include <string.h>
 
 static const char *String = "string", *Integer = "integer", *Float = "float";
-static int pint = 0;
-static float pfloat = 0.0f;
-static char *pstring = "";
+static int pint;
+static float pfloat;
+static char *pstring;
 
 /// TO be used in arr_sort()
 void insertionSort(void *arr[], int left, int right, const char *type) {
@@ -20,11 +20,10 @@ void insertionSort(void *arr[], int left, int right, const char *type) {
     } else if (strcmp(type, String) == 0) {
         caster = pstring;
     }
-
+    //todo fix string error
     for (int i = left + 1; i <= right; i++) {
-        auto temmp = pstring;
-        temmp = *((typeof(caster) *) (arr) + i);
-        int temp = *((typeof(caster) *) (arr) + i);
+        auto temp = *((typeof(caster) *) (arr) + i);
+        //int temp = *((typeof(caster) *) (arr) + i);
         int j = i - 1;
         while (*((typeof(caster) *) (arr) + j) > temp && j >= left) {
             *((typeof(caster) *) (arr) + j + 1) = *((typeof(caster) *) (arr) + j);

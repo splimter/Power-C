@@ -9,9 +9,9 @@
 #include "SortHelper.h"
 #include "Utils.h"
 
-static int pint = 0;
-static float pfloat = 0.0f;
-static char *pstring = "";
+static int pint;
+static float pfloat;
+static char *pstring;
 
 const int RUN = 3;
 
@@ -48,11 +48,11 @@ void arr_inverse(void **arr, int size, const char *type) {
         printf("error type\n");
         exit(510);
     }
-
+    //todo fix string issue
     for (int i = 0; i < size / 2; i++) {
-        int t = *((typeof(caster) *) arr + i);
-        *((typeof(caster) *) arr + i) = *((typeof(caster) *) arr + size - i - 1);
-        *((typeof(caster) *) arr + size - i - 1) = t;
+        auto t = *((typeof(caster) *) arr + i);
+        *((typeof(caster) *) (arr) + i) = *((typeof(caster) *) (arr) + size - i - 1);
+        *((typeof(caster) *) (arr) + size - i - 1) = t;
     }
 
 }
