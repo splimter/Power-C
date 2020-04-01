@@ -1,23 +1,20 @@
 //
 // Created by splimter on 04/01/2020.
 //
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "SortHelper.h"
 #include "Utils.h"
 
-static int pint;
-static float pfloat;
-static char *pstring;
+#define EPSILON 0.0001   // tolerance
+#define DOUBLE_EQ(x,v) (((v - EPSILON) < x) && (x <( v + EPSILON)))
 
 const int RUN = 3;
 
 void arr_sort(void **arr, int n, const char *type) {
 
-    if (strcmp(type, Integer) == 0 || strcmp(type, Float) == 0 || strcmp(type, String) == 0) {
+    if (strcmp(type, INTERGER) == 0 || strcmp(type, DOUBLE) == 0 || strcmp(type, STRING) == 0) {
         for (int i = 0; i < n; i += RUN)
             insertionSort(arr, i, minSort((i + 31), (n - 1)), type);
 
@@ -25,7 +22,7 @@ void arr_sort(void **arr, int n, const char *type) {
             for (int left = 0; left < n; left += 2 * size) {
                 int mid = left + size - 1;
                 int right = minSort((left + 2 * size - 1), (n - 1));
-                mergeSort(arr, left, mid, right, Integer);
+                mergeSort(arr, left, mid, right, INTERGER);
             }
 
     } else {
@@ -36,42 +33,52 @@ void arr_sort(void **arr, int n, const char *type) {
 }
 
 void arr_inverse(void **arr, int size, const char *type) {
-    auto caster;
-
-    if (strcmp(type, Integer) == 0) {
-        caster = pint;
-    } else if (strcmp(type, Float) == 0) {
-        caster = pfloat;
-    } else if (strcmp(type, String) == 0) {
-        caster = pstring;
+    if (strcmp(type, INTERGER) == 0) {
+        for (int i = 0; i < size / 2; i++) {
+            int t = *((int*) (arr) + i);
+            *((int*) (arr) + i) = *((int*)(arr) + size - i - 1);
+            *((int*) (arr) + size - i - 1)= t;
+        }
+        return;
+    } else if (strcmp(type, DOUBLE) == 0) {
+        for (int i = 0; i < size / 2; i++) {
+            double t = *((double *) (arr) + i);
+            *((double*) (arr) + i) = *((double*)(arr) + size - i - 1);
+            *((double*) (arr) + size - i - 1)= t;
+        }
+        return;
+    } else if (strcmp(type, STRING) == 0) {
+        for (int i = 0; i < size / 2; i++) {
+            char *t = *((char **) (arr) + i);
+            *((char **) (arr) + i) = *((char **)(arr) + size - i - 1);
+            *((char **) (arr) + size - i - 1)= t;
+        }
+        return;
     } else {
         printf("error type\n");
         exit(510);
     }
-    //todo fix string issue
-    for (int i = 0; i < size / 2; i++) {
-        auto t = *((typeof(caster) *) arr + i);
-        *((typeof(caster) *) (arr) + i) = *((typeof(caster) *) (arr) + size - i - 1);
-        *((typeof(caster) *) (arr) + size - i - 1) = t;
-    }
-
 }
 
-int arr_contain(void *array, int size, void *target, const char *type) {
-    auto caster;
-    if (strcmp(type, Integer) == 0) {
-        caster = pint;
-    } else if (strcmp(type, Float) == 0) {
-        caster = pfloat;
-    } else if (strcmp(type, String) == 0) {
-        caster = pstring;
+int arr_contain(void **array, int size, void *target, const char *type) {
+    if (strcmp(type, INTERGER) == 0) {
+        for (int i = 0; i < size; ++i) {
+            if (*((int *) (array) + i) == *(int *) target)
+                return i;
+        }
+    } else if (strcmp(type, DOUBLE) == 0) {
+        for (int i = 0; i < size; ++i) {
+            if (DOUBLE_EQ(*((double *) (array) + i),*(double *) target))
+                return i;
+        }
+    } else if (strcmp(type, STRING) == 0) {
+        for (int i = 0; i < size; ++i) {
+            if ( *((char **) array + i) == *(char **) target)
+                return i;
+        }
     } else {
         printf("error type\n");
         exit(510);
-    }
-    for (int i = 0; i < size; ++i) {
-        if (*((typeof(caster) *) (array) + i) == *(typeof(caster) *) target)
-            return i;
     }
 
     return -1;

@@ -1,84 +1,134 @@
 //
 // Created by splimter on 24/12/2019.
 //
-
 #include <string.h>
 
-static const char *String = "string", *Integer = "integer", *Float = "float";
-static int pint;
-static float pfloat;
-static char *pstring;
+static const char *STRING = "string", *INTERGER = "integer", *DOUBLE = "float";
 
 /// TO be used in arr_sort()
 void insertionSort(void *arr[], int left, int right, const char *type) {
 
-    auto caster;
-    if (strcmp(type, Integer) == 0) {
-        caster = pint;
-    } else if (strcmp(type, Float) == 0) {
-        caster = pfloat;
-    } else if (strcmp(type, String) == 0) {
-        caster = pstring;
-    }
-    //todo fix string error
-    for (int i = left + 1; i <= right; i++) {
-        auto temp = *((typeof(caster) *) (arr) + i);
-        //int temp = *((typeof(caster) *) (arr) + i);
-        int j = i - 1;
-        while (*((typeof(caster) *) (arr) + j) > temp && j >= left) {
-            *((typeof(caster) *) (arr) + j + 1) = *((typeof(caster) *) (arr) + j);
-            j--;
+    if (strcmp(type, INTERGER) == 0) {
+        for (int i = left + 1; i <= right; i++) {
+            int temp = *((int *) (arr) + i);
+            int j = i - 1;
+            while (*((int *) (arr) + j) > temp && j >= left) {
+                *((int *) (arr) + j + 1) = *((int *) (arr) + j);
+                j--;
+            }
+            *((int *) (arr) + j + 1) = temp;
         }
-        *((typeof(caster) *) (arr) + j + 1) = temp;
+    } else if (strcmp(type, DOUBLE) == 0) {
+        for (int i = left + 1; i <= right; i++) {
+            double temp = *((double *) (arr) + i);
+            int j = i - 1;
+            while (*((double *) (arr) + j) > temp && j >= left) {
+                *((double *) (arr) + j + 1) = *((double *) (arr) + j);
+                j--;
+            }
+            *((double *) (arr) + j + 1) = temp;
+        }
+    } else if (strcmp(type, STRING) == 0) {
+        for (int i = left + 1; i <= right; i++) {
+            char * temp = *((char **) (arr) + i);
+            int j = i - 1;
+            while (*((char **) (arr) + j) > temp && j >= left) {
+                *((char **) (arr) + j + 1) = *((char **) (arr) + j);
+                j--;
+            }
+            *((char **) (arr) + j + 1) = temp;
+        }
     }
-
 }
 
 void mergeSort(void *arr[], int l, int m, int r, const char *type) {
     int len1 = m - l + 1, len2 = r - m;
     void *left[len1], *right[len2];
 
-    auto caster;
-    if (type == Integer) {
-        caster = pint;
-    } else if (type == Float) {
-        caster = pfloat;
-    } else if (type == String) {
-        caster = pstring;
+    if (type == INTERGER) {
+        for (int i = 0; i < len1; i++)
+            *((int *) (left) + i) = *((int *) (arr) + l + i);
+        for (int i = 0; i < len2; i++)
+            *((int *) (right) + i) = *((int *) (arr) + m + 1 + i);
+    } else if (type == DOUBLE) {
+        for (int i = 0; i < len1; i++)
+            *((double *) (left) + i) = *((double *) (arr) + l + i);
+        for (int i = 0; i < len2; i++)
+            *((double *) (right) + i) = *((double *) (arr) + m + 1 + i);
+    } else if (type == STRING) {
+        for (int i = 0; i < len1; i++)
+            *((char **) (left) + i) = *((char **) (arr) + l + i);
+        for (int i = 0; i < len2; i++)
+            *((char **) (right) + i) = *((char **) (arr) + m + 1 + i);
     }
 
-    for (int i = 0; i < len1; i++)
-        *((typeof(caster) *) (left) + i) = *((typeof(caster) *) (arr) + l + i);
-    for (int i = 0; i < len2; i++)
-        *((typeof(caster) *) (right) + i) = *((typeof(caster) *) (arr) + m + 1 + i);
 
     int i = 0, j = 0, k = l;
 
-    if (type == Integer) {}
-    else if (type == Float) {}
-    else if (type == String) {}
-
-    while (i < len1 && j < len2) {
-        if (*((typeof(caster) *) (left) + i) <= *((typeof(caster) *) (right) + j)) {
-            *((typeof(caster) *) (arr) + k) = *((typeof(caster) *) (left) + i);
+    if (type == INTERGER) {
+        while (i < len1 && j < len2) {
+            if (*((int *) (left) + i) <= *((int *) (right) + j)) {
+                *((int *) (arr) + k) = *((int *) (left) + i);
+                i++;
+            } else {
+                *((int *) (arr) + k) = *((int *) (right) + j);
+                j++;
+            }
+            k++;
+        }
+        while (i < len1) {
+            *((int *) (arr) + k) = *((int *) (left) + i);
+            k++;
             i++;
-        } else {
-            *((typeof(caster) *) (arr) + k) = *((typeof(caster) *) (right) + j);
+        }
+        while (j < len2) {
+            *((int *) (arr) + k) = *((int *) (right) + j);
+            k++;
             j++;
         }
-        k++;
+    } else if (type == DOUBLE) {
+        while (i < len1 && j < len2) {
+            if (*((double *) (left) + i) <= *((double *) (right) + j)) {
+                *((double *) (arr) + k) = *((double *) (left) + i);
+                i++;
+            } else {
+                *((double *) (arr) + k) = *((double *) (right) + j);
+                j++;
+            }
+            k++;
+        }
+        while (i < len1) {
+            *((double *) (arr) + k) = *((double *) (left) + i);
+            k++;
+            i++;
+        }
+        while (j < len2) {
+            *((double *) (arr) + k) = *((double *) (right) + j);
+            k++;
+            j++;
+        }
+    } else if (type == STRING) {
+        while (i < len1 && j < len2) {
+            if (*((char **) (left) + i) <= *((char **) (right) + j)) {
+                *((char **) (arr) + k) = *((char **) (left) + i);
+                i++;
+            } else {
+                *((char **) (arr) + k) = *((char **) (right) + j);
+                j++;
+            }
+            k++;
+        }
+        while (i < len1) {
+            *((char **) (arr) + k) = *((char **) (left) + i);
+            k++;
+            i++;
+        }
+        while (j < len2) {
+            *((char **) (arr) + k) = *((char **) (right) + j);
+            k++;
+            j++;
+        }
     }
-    while (i < len1) {
-        *((typeof(caster) *) (arr) + k) = *((typeof(caster) *) (left) + i);
-        k++;
-        i++;
-    }
-    while (j < len2) {
-        *((typeof(caster) *) (arr) + k) = *((typeof(caster) *) (right) + j);
-        k++;
-        j++;
-    }
-
 }
 
 // min function return min between 2

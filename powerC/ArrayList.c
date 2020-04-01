@@ -2,7 +2,6 @@
 // Created by splimter on 04/01/2020.
 // origin work pseudomuto
 //
-
 #ifndef POWERC_ARRAYLIST_H
 #define POWERC_ARRAYLIST_H
 
@@ -12,12 +11,6 @@
 #include <stdio.h>
 #include "ArrayList.h"
 #include "Utils.h"
-
-
-static int pint = 0;
-static float pfloat = 0.0f;
-static char *pstring = "";
-
 
 /// Initializes a linked list
 void al_init(arraylist *list, int elementSize, freeFunction freeFn) {
@@ -132,11 +125,6 @@ int al_size(arraylist *list) {
     return list->logicalLength;
 }
 
-void al_fstring(void *data);
-
-/// delete the tail of list
-void al_delTail(arraylist *list);
-
 /// return value at defined index
 void *al_getAtIndex(arraylist *list, int i, const char* type) {
     void *val;
@@ -153,10 +141,10 @@ void *al_getAtIndex(arraylist *list, int i, const char* type) {
     } else if (i == al_size(list)) {
         al_tail(list, &val);
     } else {
-        if (type == String) {
+        if (type == STRING) {
             al_init(&_list, sizeof(char *), al_fstring);
             _list.head = list->head->next;
-        } else if (type == Integer) {
+        } else if (type == INTERGER) {
             al_init(&_list, sizeof(int), NULL);
             _list.head = list->head->next;
         }
@@ -264,105 +252,121 @@ void al_setAtIndex(arraylist *list, int i, void *element) {
 
 /// convert arraylist to array
 void al_toArray(arraylist *list, void *arr[], const char *type) {
-    auto caster;
-    if (type == Integer) {
-        caster = pint;
-    } else if (type == Float) {
-        caster = pfloat;
-    } else if (type == String) {
-        caster = pstring;
+    listNode *c = list->head;
+    int size = al_size(list);
+
+    if (type == INTERGER) {
+        for (int i = 0; i < size; i++) {
+            *((int *) (arr) + i) = *(int *) (c->data);
+            c = c->next;
+        }
+    } else if (type == DOUBLE) {
+        for (int i = 0; i < size; i++) {
+            *((double *) (arr) + i) = *(double *) (c->data);
+            c = c->next;
+        }
+    } else if (type == STRING) {
+        for (int i = 0; i < size; i++) {
+            *((char **) (arr) + i) = *(char **) (c->data);
+            c = c->next;
+        }
     } else {
         printf("error type\n");
         exit(510);
     }
-
-    listNode *c = list->head;
-    int size = al_size(list);
-
-    for (int i = 0; i < size; i++) {
-        *((typeof(caster) *) (arr) + i) = *(typeof(caster) *) (c->data);
-        c = c->next;
-    }
-
 }
 
 /// sort array list
 void al_sort(arraylist *list, char *type) {
+    int size = al_size(list);
+    int arr[size];
 
-    auto caster;
-    if (type == Integer) {
-        caster = pint;
-    } else if (type == Float) {
-        caster = pfloat;
-    } else if (type == String) {
-        caster = pstring;
+    al_toArray(list, (void **) arr, INTERGER);
+    arr_sort((void **) arr, size, type);
+
+    listNode *c = list->head;
+    if (type == INTERGER) {
+        for (int i = 0; i < size; i++) {
+            *(int *) (c->data) = *((int *) (arr) + i);
+            c = c->next;
+        }
+    } else if (type == DOUBLE) {
+        for (int i = 0; i < size; i++) {
+            *(double *) (c->data) = *((double *) (arr) + i);
+            c = c->next;
+        }
+    } else if (type == STRING) {
+        for (int i = 0; i < size; i++) {
+            *(char **) (c->data) = *((char **) (arr) + i);
+            c = c->next;
+        }
     } else {
         printf("error type\n");
         exit(510);
     }
-
-    int size = al_size(list);
-    int arr[size];
-
-    al_toArray(list, (void **) arr, Integer);
-    arr_sort((void **) arr, size, type);
-
-    listNode *c = list->head;
-    for (int i = 0; i < size; i++) {
-        *(typeof(caster) *) (c->data) = *((typeof(caster) *) (arr) + i);
-        c = c->next;
-    }
-
 }
 
 /// reverse array list
 void al_inverse(arraylist *list,const char *type) {
-    auto caster;
-    if (type == Integer) {
-        caster = pint;
-    } else if (type == Float) {
-        caster = pfloat;
-    } else if (type == String) {
-        caster = pstring;
+    int size = al_size(list);
+    int arr[size];
+
+    al_toArray(list, (void **) arr, INTERGER);
+    arr_inverse((void **) arr, size, type);
+
+    listNode *c = list->head;
+
+    if (type == INTERGER) {
+        for (int i = 0; i < size; i++) {
+            *(int *) (c->data) = *((int *) (arr) + i);
+            c = c->next;
+        }
+    } else if (type == DOUBLE) {
+        for (int i = 0; i < size; i++) {
+            *(double *) (c->data) = *((double *) (arr) + i);
+            c = c->next;
+        }
+    } else if (type == STRING) {
+        for (int i = 0; i < size; i++) {
+            *(char **) (c->data) = *((char **) (arr) + i);
+            c = c->next;
+        }
     } else {
         printf("error type\n");
         exit(510);
     }
-
-    int size = al_size(list);
-    int arr[size];
-
-    al_toArray(list, (void **) arr, Integer);
-    arr_inverse((void **) arr, size, type);
-
-    listNode *c = list->head;
-    for (int i = 0; i < size; i++) {
-        *(typeof(caster) *) (c->data) = *((typeof(caster) *) (arr) + i);
-        c = c->next;
-    }
-
 }
 
 /// search an element in arraylist
 int al_contain(arraylist *list,void *target,const char *type){
-    auto caster;
-    if (type == Integer) {
-        caster = pint;
-    } else if (type == Float) {
-        caster = pfloat;
-    } else if (type == String) {
-        caster = pstring;
+    listNode *c = list->head;
+
+    if (type == INTERGER) {
+        for (int i = 0; i < al_size(list); ++i) {
+            if( *(int *) (c->data) ==*(int *) target)
+                return i;
+            else
+                c = c->next;
+        }
+    } else if (type == DOUBLE) {
+        for (int i = 0; i < al_size(list); ++i) {
+            if( *(double *) (c->data) ==*(double *) target)
+                return i;
+            else
+                c = c->next;
+        }
+    } else if (type == STRING) {
+        for (int i = 0; i < al_size(list); ++i) {
+            if( *(char **) (c->data) == *(char **) target)
+                return i;
+            else
+                c = c->next;
+        }
     } else {
         printf("error type\n");
         exit(510);
     }
-    listNode *c = list->head;
-    for (int i = 0; i < al_size(list); ++i) {
-        if( *(typeof(caster) *) (c->data) ==*(typeof(caster) *) target)
-            return i;
-        else
-            c = c->next;
-    }
+
     return -1;
 }
 

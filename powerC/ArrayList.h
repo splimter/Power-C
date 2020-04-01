@@ -2,8 +2,6 @@
 // Created by splimter on 15/12/2019.
 // origin work pseudomuto
 //
-
-
 /// @details
 /// Always init the list using: al_init
 /// Always destroy the list using: al_destroy
@@ -17,8 +15,6 @@
 /// 500 Index cannot be below 0
 /// 501 Index Out of Range
 /// 502 Empty Array X tolerated
-
-
 
 // a common function used to free malloc'd objects
 typedef void (*freeFunction)(void *);
