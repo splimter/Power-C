@@ -26,7 +26,7 @@ void arr_sort(void **arr, int n, const char *type) {
             }
 
     } else {
-        printf("type error\n");
+        printf("type error on arr_sort call\n");
         exit(510);
     }
 
@@ -55,12 +55,12 @@ void arr_inverse(void **arr, int size, const char *type) {
         }
         return;
     } else {
-        printf("error type\n");
+        printf("type error on arr_inverse call\n");
         exit(510);
     }
 }
 
-int arr_contain(void **array, int size, void *target, const char *type) {
+int arr_contains(void **array, int size, void *target, const char *type) {
     if (strcmp(type, INTERGER) == 0) {
         for (int i = 0; i < size; ++i) {
             if (*((int *) (array) + i) == *(int *) target)
@@ -77,7 +77,7 @@ int arr_contain(void **array, int size, void *target, const char *type) {
                 return i;
         }
     } else {
-        printf("error type\n");
+        printf("type error on arr_contains call\n");
         exit(510);
     }
 

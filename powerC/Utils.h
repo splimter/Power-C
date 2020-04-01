@@ -33,7 +33,7 @@ void arr_inverse(void **arr, int size, const char *type);
 /// \param target - &E
 /// \param type - Integer, Float, String
 /// \return the index of element if found else -1
-int arr_contain(void **array, int size, void *target, const char *type);
+int arr_contains(void **array, int size, void *target, const char *type);
 
 // utility function to print the Array
 void printArrayInt(int *arr, int n);

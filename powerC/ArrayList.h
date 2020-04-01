@@ -6,7 +6,7 @@
 /// Always init the list using: al_init
 /// Always destroy the list using: al_destroy
 /// C operation: al_append, al_prepend, al_toArray
-/// R operation: al_getAtIndex, al_contain
+/// R operation: al_getAtIndex, al_contains
 /// U operation: al_setAtIndex, al_sort, al_reverse
 /// D operation: al_delAtIndex, al_delHead, al_delTail
 /// get arraylist size: al_size
@@ -59,7 +59,7 @@ void al_prepend(arraylist *list, void *element);
 /// \param element - &E
 void al_append(arraylist *list, void *element);
 
-/// Output each node in list
+/// print out each node in list
 /// \param list - &list
 /// \param iterator - type: iterate_type,
 void al_for_each(arraylist *list, listIterator iterator);
@@ -138,7 +138,7 @@ void al_inverse(arraylist *list, const char *type);
 /// \param list - &list
 /// \param target - &E
 /// \return the index of element if found else -1
-int al_contain(arraylist *list, void *target, const char *type);
+int al_contains(arraylist *list, void *target, const char *type);
 
 
 void al_fstring(void *data);

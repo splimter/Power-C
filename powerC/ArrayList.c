@@ -87,13 +87,13 @@ void al_for_each(arraylist *list, listIterator iterator) {
 
 /// listIterator for list_for_each
 bool iterate_int(void *data) {
-    printf("Found value: %d\n", *(int *) data);
+    printf("%d ", *(int *) data);
     return TRUE;
 }
 
 /// listIterator for list_for_each
 bool iterate_string(void *data) {
-    printf("Found string value: %s\n", *(char **) data);
+    printf("%s ", *(char **) data);
     return TRUE;
 }
 
@@ -126,7 +126,7 @@ int al_size(arraylist *list) {
 }
 
 /// return value at defined index
-void *al_getAtIndex(arraylist *list, int i, const char* type) {
+void *al_getAtIndex(arraylist *list, int i, const char *type) {
     void *val;
     arraylist _list;
 
@@ -141,10 +141,10 @@ void *al_getAtIndex(arraylist *list, int i, const char* type) {
     } else if (i == al_size(list)) {
         al_tail(list, &val);
     } else {
-        if (type == STRING) {
+        if (strcmp(type, STRING) == 0) {
             al_init(&_list, sizeof(char *), al_fstring);
             _list.head = list->head->next;
-        } else if (type == INTERGER) {
+        } else if (strcmp(type, INTERGER) == 0) {
             al_init(&_list, sizeof(int), NULL);
             _list.head = list->head->next;
         }
@@ -255,23 +255,23 @@ void al_toArray(arraylist *list, void *arr[], const char *type) {
     listNode *c = list->head;
     int size = al_size(list);
 
-    if (type == INTERGER) {
+    if (strcmp(type, INTERGER) == 0) {
         for (int i = 0; i < size; i++) {
             *((int *) (arr) + i) = *(int *) (c->data);
             c = c->next;
         }
-    } else if (type == DOUBLE) {
+    } else if (strcmp(type, DOUBLE) == 0) {
         for (int i = 0; i < size; i++) {
             *((double *) (arr) + i) = *(double *) (c->data);
             c = c->next;
         }
-    } else if (type == STRING) {
+    } else if (strcmp(type, STRING) == 0) {
         for (int i = 0; i < size; i++) {
             *((char **) (arr) + i) = *(char **) (c->data);
             c = c->next;
         }
     } else {
-        printf("error type\n");
+        printf("type error on al_toArray call\n");
         exit(510);
     }
 }
@@ -285,29 +285,29 @@ void al_sort(arraylist *list, char *type) {
     arr_sort((void **) arr, size, type);
 
     listNode *c = list->head;
-    if (type == INTERGER) {
+    if (strcmp(type, INTERGER) == 0) {
         for (int i = 0; i < size; i++) {
             *(int *) (c->data) = *((int *) (arr) + i);
             c = c->next;
         }
-    } else if (type == DOUBLE) {
+    } else if (strcmp(type, DOUBLE) == 0) {
         for (int i = 0; i < size; i++) {
             *(double *) (c->data) = *((double *) (arr) + i);
             c = c->next;
         }
-    } else if (type == STRING) {
+    } else if (strcmp(type, STRING) == 0) {
         for (int i = 0; i < size; i++) {
             *(char **) (c->data) = *((char **) (arr) + i);
             c = c->next;
         }
     } else {
-        printf("error type\n");
+        printf("type error on al_sort call\n");
         exit(510);
     }
 }
 
 /// reverse array list
-void al_inverse(arraylist *list,const char *type) {
+void al_inverse(arraylist *list, const char *type) {
     int size = al_size(list);
     int arr[size];
 
@@ -316,54 +316,54 @@ void al_inverse(arraylist *list,const char *type) {
 
     listNode *c = list->head;
 
-    if (type == INTERGER) {
+    if (strcmp(type, INTERGER) == 0) {
         for (int i = 0; i < size; i++) {
             *(int *) (c->data) = *((int *) (arr) + i);
             c = c->next;
         }
-    } else if (type == DOUBLE) {
+    } else if (strcmp(type, DOUBLE) == 0) {
         for (int i = 0; i < size; i++) {
             *(double *) (c->data) = *((double *) (arr) + i);
             c = c->next;
         }
-    } else if (type == STRING) {
+    } else if (strcmp(type, STRING) == 0) {
         for (int i = 0; i < size; i++) {
             *(char **) (c->data) = *((char **) (arr) + i);
             c = c->next;
         }
     } else {
-        printf("error type\n");
+        printf("type error on al_inverse call\n");
         exit(510);
     }
 }
 
 /// search an element in arraylist
-int al_contain(arraylist *list,void *target,const char *type){
+int al_contains(arraylist *list, void *target, const char *type) {
     listNode *c = list->head;
 
-    if (type == INTERGER) {
+    if (strcmp(type, INTERGER) == 0) {
         for (int i = 0; i < al_size(list); ++i) {
-            if( *(int *) (c->data) ==*(int *) target)
+            if (*(int *) (c->data) == *(int *) target)
                 return i;
             else
                 c = c->next;
         }
-    } else if (type == DOUBLE) {
+    } else if (strcmp(type, DOUBLE) == 0) {
         for (int i = 0; i < al_size(list); ++i) {
-            if( *(double *) (c->data) ==*(double *) target)
+            if (*(double *) (c->data) == *(double *) target)
                 return i;
             else
                 c = c->next;
         }
-    } else if (type == STRING) {
+    } else if (strcmp(type, STRING) == 0) {
         for (int i = 0; i < al_size(list); ++i) {
-            if( *(char **) (c->data) == *(char **) target)
+            if (*(char **) (c->data) == *(char **) target)
                 return i;
             else
                 c = c->next;
         }
     } else {
-        printf("error type\n");
+        printf("type error on al_contains call\n");
         exit(510);
     }
 
