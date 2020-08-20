@@ -1,8 +1,11 @@
 # Power-C
-Most popular and used libraries and algorithms to make C easy as others. 
+
+Most popular and used libraries and algorithms to make C easy as others.
 
 ## Full Example
+
 Array list:
+
 ```c
 #include <stdio.h>
 #include "powerC/Utils.h"
@@ -51,6 +54,7 @@ al_for_each(&my_list, iterate_int);
 ```
 
 Array:
+
 ```c
 int arrint[] = {11, 22, 33, 44, 55, 66};
 
@@ -72,10 +76,13 @@ if (arr_contains(arrint, 6, &falsetar, INTERGER) == -1)
 if (arr_contains(arrint, 6, &truetar, INTERGER) != -1)
     printf("found\n");
 ```
+
 ## libs
+
 ### ArrayList.h
 
 @details
+
 * Always init the list using: al_init
 * Always destroy the list using: al_destroy
 * C operation: al_append, al_prepend
@@ -85,6 +92,7 @@ if (arr_contains(arrint, 6, &truetar, INTERGER) != -1)
 * get arraylist size: al_size
 
 @warning
+
 * 500 Index cannot be below 0
 * 501 Index Out of Range
 * 502 Empty Array X tolerated
@@ -92,20 +100,23 @@ if (arr_contains(arrint, 6, &truetar, INTERGER) != -1)
 ### Utils.h
 
 @details
+
 * arr_sort
 * arr_inverse
 * arr_contains
 
 @warning
+
 * 510 type error
 
 ## Notes
+
 Supported type `int`, `double`, `char`, `char * (string)`, as for `float` is dropped and `struct` will be added in future.
 
-Floating-point decimal values generally do not have an exact binary representation.<br>
-This is a side effect of how the CPU represents floating point data.<br>
-For this reason, you may experience some loss of precision, 
-and some floating-point operations may produce unexpected results.<br>
-To resolve the behavior, most programmers either ensure that the value is greater or less than what is needed, 
-or they get and use a Binary Coded Decimal (BCD) library that will maintain the precision.<br>
-Therefore `DOUBLE_EQ` is made.<br>
+Floating-point decimal values generally do not have an exact binary representation.</br>
+This is a side effect of how the CPU represents floating point data.</br>
+For this reason, you may experience some loss of precision,
+and some floating-point operations may produce unexpected results.</br>
+To resolve the behavior, most programmers either ensure that the value is greater or less than what is needed,
+or they get and use a Binary Coded Decimal (BCD) library that will maintain the precision.</br>
+Therefore `DOUBLE_EQ` is made.</br>
